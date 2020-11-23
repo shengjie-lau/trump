@@ -26,23 +26,25 @@ export default {
       this.chartInstance = this.$echarts.init(this.$refs.calendar_ref)
       const initOption = {
         title: {
-          top: 30,
-          text: 'trump在2019/12的发出的tweet数量',
-          left: 'center'
+          text: 'Daily Tweet',
+          textStyle: {
+            fontSize: 12
+          },
+          left: 10,
+          top: 15
         },
         tooltip: {
           trigger: 'item'
         },
         legend: {
-          top: '30',
-          left: '100',
+          top: 10,
           data: ['count', 'top 3']
         },
         calendar: [
           {
-            top: 250,
+            top: 50,
             left: 'center',
-            range: ['2019-12-01', '2019-12-31'],
+            range: ['2019-01-01', '2019-06-30'],
             splitLine: {
               show: true,
               lineStyle: {
@@ -52,7 +54,8 @@ export default {
               }
             },
             yearLabel: {
-              formatter: '{start}'
+              formatter: '{start}',
+              fontSize: 15
             },
             itemStyle: {
               color: '#323c48',
@@ -103,15 +106,22 @@ export default {
           item.count
         ]
       })
+      console.log(dataArr)
       const dataOption = {
         series: [
           {
-            data: dataArr
+            data: dataArr,
+            symbolSize: function (val) {
+              return val[1] / 1.5
+            }
           },
           {
             data: dataArr.sort(function (a, b) {
               return b[1] - a[1]
-            }).slice(0, 3)
+            }).slice(0, 3),
+            symbolSize: function (val) {
+              return val[1] / 1.5
+            }
           }
         ]
       }

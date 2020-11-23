@@ -24,7 +24,7 @@ export default {
   methods: {
     initChart () {
       // 初始化图表方法
-      this.chartInstance = this.$echarts.init(this.$refs.main_ref)
+      this.chartInstance = this.$echarts.init(this.$refs.main_ref, 'chalk')
       const initOption = {
         tooltip: {
           trigger: 'axis',
@@ -131,7 +131,7 @@ export default {
       })
       const lineData = this.allData.map(item => {
         // 发推量 与 转发量和点赞量 不是一个量级，可以通过数学方法降低数量差异
-        return parseInt((item.value.retweets + item.value.favorites))
+        return parseInt((item.value.retweets + item.value.favorites) / 50)
       })
       console.log(lineData)
       // const retweetsArr = this.allData.map(item => {
